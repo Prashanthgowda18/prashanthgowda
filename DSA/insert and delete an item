@@ -1,0 +1,118 @@
+1#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_SIZE 5
+
+// Inserting an item at the specified poistion
+int insert_at_pos(int item, int a[], int n, int pos)
+{
+    int i;
+    
+    //Check for full array
+    if (n == MAX_SIZE)
+    {
+        printf("Array is full\n");
+        return n;
+    }
+    
+    // Check for invald position
+    if (pos > n || pos < 0)
+    {
+        printf("Invalid position\n");
+        return n;
+    }
+    
+    // Move the items to right by one position
+    for (i = n - 1; i >= pos; i--)
+    {
+        a[i+1] = a[i];
+    }
+    
+    // Insert at the specified position
+    a[pos] = item;
+    
+    //Updat the number of elements
+    return n + 1;
+}
+
+//Function to delete an item at the specified position
+int delete_at_pos(int a[], int n, int pos)
+{
+    int i;
+    
+    // Check for empty Array
+    if (n == 0)
+    {
+        printf("Array is empty\n");
+        return n;
+    }
+    
+    //Check for invalid position
+    if (pos >= n || pos < 0)
+    {
+        printf("Invalid poisiton\n");
+        return n;
+    }
+    
+    printf("Item deleted = %d\n", a[pos]);
+    
+    // Move the items to left by 1 position
+    for (i = pos + 1; i < n; i++)
+    {
+        a[i - 1] = a[i];
+    }
+    
+    //Update number of elements
+    return n - 1;
+}
+
+void print_array(int a[], int n)
+{
+    int i;
+    
+    for (i = 0; i < n; i++) printf("%d ", a[i]);
+    
+    printf("\n");
+}
+
+void main()
+{
+    int choice, item, pos, a[10], n = 0;
+    
+    for (;;)
+    {
+        printf("1:Insert 2:Delete 3:Display 4:Exit : ");
+        scanf("%d", &choice);
+        
+        switch (choice)
+        {
+            case 1:
+                printf("Enter the item : ");
+                scanf("%d", &item);
+                
+                printf("Enter the position : ");
+                scanf("%d", &pos);
+                
+                n = insert_at_pos(item, a, n, pos);
+                
+                break;
+                
+            case 2:
+                printf("Enter the position : ");
+                scanf("%d", &pos);
+                
+                n = delete_at_pos(a, n, pos);
+                
+                break;
+                          
+            case 3:
+                printf("Array : ");
+                print_array(a, n);
+                
+                break;
+                
+            default:
+                exit(0);
+        }
+    }
+}
